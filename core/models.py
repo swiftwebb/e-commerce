@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.validators import MinValueValidator 
 # Create your models here.
 from django.urls import reverse
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from django_countries.fields import CountryField
 from django.db.models.signals import post_save 
@@ -66,7 +67,7 @@ class Item(models.Model):
     slug = models.SlugField()
     description =models.TextField()
     quantity = models.IntegerField(default=1,validators=[MinValueValidator(0)])
-    image = models.ImageField()
+    image = models.ImageField(storage=S3Boto3Storage(), upload_to='ecom/')
     timestamp = models.DateTimeField(auto_now_add=True)
     type_phone = models.CharField(choices= TYPE_CHOICES, max_length=19)
 
