@@ -35,6 +35,8 @@ DEBUG = DEBUG = os.getenv('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['e-commerce-quse.onrender.com', 'localhost', '127.0.0.1']
 
+# Added domain for Render hosting
+
 
 
 
