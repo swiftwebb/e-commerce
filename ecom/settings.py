@@ -30,12 +30,10 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  = True
 
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
-# ALLOWED_HOSTS = ['e-commerce-quse.onrender.com', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Added domain for Render hosting
 
