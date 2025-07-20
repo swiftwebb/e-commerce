@@ -34,7 +34,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 DEBUG  = True
 
 
-ALLOWED_HOSTS = ['e-commerce-quse.onrender.com', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['e-commerce-quse.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Added domain for Render hosting
 
