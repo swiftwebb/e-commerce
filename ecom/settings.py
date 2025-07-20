@@ -31,7 +31,8 @@ else:
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = DEBUG = os.getenv('DJANGO_DEBUG', '') != 'False'
+DEBUG  = True
+
 
 ALLOWED_HOSTS = ['e-commerce-quse.onrender.com', 'localhost', '127.0.0.1']
 
