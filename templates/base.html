@@ -61,7 +61,7 @@
                             <ul>
                                 <li>
                                     {% if request.user.is_authenticated %}
-                                        <a href="{% url 'account_logout' %}"><span><i class="fas fa-user"></i> logout</span></a>
+                                        <a href="{% url 'account_logout' %}"><span><i class="fas fa-user"></i> logout   {{ request.user.username  }}</span></a>
 
                                         <a href="{% url 'core:order-summary' %}"><span><i class="fas fa-shopping-cart"></i></span>
                                             <span class="count">{{ request.user|cart_item_count }}</span>
