@@ -58,7 +58,7 @@ class Cats(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
-    cats = models.ManyToManyField('Cats',blank=True,null=True )
+    cats = models.ManyToManyField('Cats',blank=True)
 
     discount_price = models.FloatField(blank=True,null=True)
     category = models.CharField(choices= CATEGORY_CHOICES, max_length=2)
