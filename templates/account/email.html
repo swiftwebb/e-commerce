@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load staticc %}
+
+{% block title %}Manage Email Addresses{% endblock %}
+
+{% block content %}
+<h2>Manage Email Addresses</h2>
+<div class="col-4 offset-4 mb-5 mt-5" enctype="multipart/form-data">
+<form method="post" action="{% url 'account_email' %}">
+  {% csrf_token %}
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <ul>
+    {% for email in emails %}
+      <li>
+        {{ email.email }}
+        {% if email.primary %}
+          <strong>(Primary)</strong>
+        {% else %}
+          <a href="{% url 'account_email' %}?action=remove&email={{ email.email|urlencode }}">Remove</a>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>{% trans "No email addresses added." %}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Add New Email Address</h3>
+  {{ form.email.label_tag }}
+  {{ form.email }}
+  
+  <button type="submit" class="btn btn-secondary">{% trans "Add Email" %}</button>
+  <a href="{% url 'core:index' %}">Cancel</a>
+</form>
+</div>
+{% endblock %}

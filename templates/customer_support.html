@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Navbar -->
+
+  <!-- Navbar -->
+  
+  <!-- carousel -->
+
+  
+   <!--Main layout-->
+  <main>
+  <div class="container">
+    <h2>Customer support</h2>
+    <div class="col-lg-4 col-md-12 mb-4">
+           <p>Opening Hours</p>
+           <p>Mon - Fri: 9am - 5pm</p>
+            <p> Saturday: 10am - 5pm</p>
+            <p>Location</p>
+            <p>Distinct Plaza, Francais Oremeji Street Computer Village, Lagos, Nigeria.</p>
+</div>
+
+
+    <div class="col-lg-4 col-md-12 mb-4"></div>
+    <b><h3> We're here to help!</h3></b>
+    <b><h3>Fill out the form with any query on your mind and we will get back to you as soon as possible</h3></b>
+</div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  </main>
+   <!--Main layout-->
+
+
+
+
+
+{% endblock %}
+

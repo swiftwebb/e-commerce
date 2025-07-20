@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Log In" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Log In" %}</h2>
+
+<div class="col-4 offset-4 mb-5 mt-5">
+  <form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      {{ form.login.label_tag }}
+      {{ form.login|add_class:"form-control" }}
+      {{ form.login.errors }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.password.label_tag }}
+      {{ form.password|add_class:"form-control" }}
+      {{ form.password.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-secondary">{% trans "Log In" %}</button>
+    <a href="{% url 'core:index' %}" class="btn btn-link">{% trans "Cancel" %}</a>
+    <p><a href="{% url 'account_reset_password' %}">Forgot your password?</a></p>
+
+    <div lass="mb-3">
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

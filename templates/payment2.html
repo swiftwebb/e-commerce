@@ -1,0 +1,294 @@
+
+{% extends 'base.html' %}
+{% block extra_head %}
+<style>
+
+#stripeBtnLabel {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  font-variant: normal;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 500;
+  display: block;
+}
+
+#stripeBtn {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  text-decoration: none;
+  color: #fff;
+  background: #32325d;
+  white-space: nowrap;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-decoration: none;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+  float: left;
+  width: 100%
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+  background-color: #43458b;
+}
+
+.stripe-form {
+  padding: 5px 30px;
+}
+
+#card-errors {
+  height: 20px;
+  padding: 4px 0;
+  color: #fa755a;
+}
+
+.stripe-form-row {
+  width: 100%;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.current-card-form {
+  display: none;
+}
+
+</style>
+{% endblock extra_head %}
+{% block content %}
+
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+    <!-- Container wrapper -->
+    <div class="container">    
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent1"
+        aria-controls="navbarSupportedContent1"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+
+      <!-- Collapsible wrapper -->
+      
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+        <!-- Icon -->
+        <a class="nav-link me-3" href="#">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+  
+        <a class="nav-link me-3" href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a class="nav-link me-3" href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+      <!-- Right elements -->
+      
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  
+  <!-- carousel -->
+
+  
+<!--Main layout-->
+<main class="">
+    <div class="container">
+        <!-- Heading -->
+        <h2 class="my-5 text-center">Checkout form</h2>
+
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4">
+                
+                <!--Card-->
+                <div class="card p-4">
+                <!-- templates/payment.html -->
+                <form action="." method="post" class="stripe-form" id="stripe-form">
+                    {% csrf_token %}
+                    <div class="stripe-form-row" id="creditCard">
+                        <label for="card-element" id="stripeBtnLabel">
+                            Credit or debit card
+                        </label>
+                        <div id="card-element" class="StripeElement StripeElement--empty"><div class="__PrivateStripeElement" style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;"><iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5" allowpaymentrequest="true" src="https://js.stripe.com/v3/elements-inner-card-19066928f2ed1ba3ffada645e45f5b50.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1" title="Secure payment input frame" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; height: 19.2px;"></iframe><input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false" maxlength="1" style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;"></div></div>
+                    </div>
+                    <div class="stripe-form-row">
+
+                    <div id="card-errors" role="alert"></div>
+                      
+                    </div>
+                  
+                    <button id="stripeBtn">Submit Payment</button>
+                  </form>
+
+                </div>
+                <!--/.Card-->
+            </div>
+            <!--Grid column-->
+         {% include "order_snippet.html" %}
+            <!--Grid column-->
+           
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+
+<!-- footer -->
+
+
+  {% block extra_scripts %}
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    var stripe = Stripe('{{ STRIPE_PUBLISHABLE_KEY }}');
+    var elements = stripe.elements();
+  
+    var card = elements.create('card');
+    card.mount('#card-element');
+  
+    card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+  
+    var form = document.getElementById('stripe-form');
+  
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      stripe.confirmCardPayment('{{ client_secret }}', {
+        payment_method: {
+          card: card
+        }
+      }).then(function(result) {
+        if (result.error) {
+          // Show error to your customer
+          document.getElementById('card-errors').textContent = result.error.message;
+        } else {
+          if (result.paymentIntent.status === 'succeeded') {
+            // Record the payment in Django
+            fetch('/record-payment/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                payment_intent_id: result.paymentIntent.id,
+                amount: result.paymentIntent.amount / 100
+              })
+            }).then(function(response) {
+              if (response.ok) {
+                // Redirect after success
+                window.location.href = "/payment-success/";
+              } else {
+                alert('Payment succeeded but failed to record.');
+              }
+            });
+          }
+        }
+      });
+    });
+  </script>
+  
+  {% endblock extra_scripts %}
+  
+  
+
+
+
+{% endblock %}
+  
+
+<!-- <script>
+  function payWithPaystack() {
+      let currency = 'NGN';
+      let plan = '';
+      let ref = '{{payment.ref}}';
+      let amount = '{{payment.amount}}';
+      let pubKey = '{{paystack_pub_key}}';
+      let obj = {
+          key: pubKey,
+          email: '{{payment.email}}',
+          amount: '{{amount}}',
+          ref: ref,
+          callback: function (response) {
+              window.location.href = "{% url 'verify_payment' payment.ref %}";
+          },
+      };
+      if (Boolean(currency)) {
+          obj.currency = currency.toUpperCase();
+      }
+      if (Boolean(plan)) {
+          obj.plan = plan;
+      }
+      var handler = PaystackPop.setup(obj);
+      handler.openIframe();
+  }
+      
+</script>
+
+<script type="application/javascript" src="https://js.paystack.co/v1/inline.js"></script> -->
+  

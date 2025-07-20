@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Log Out" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Log Out" %}</h2>
+
+<div class="col-4 offset-4 mb-5 mt-5">
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+
+    <p>{% trans "Are you sure you want to log out?" %}</p>
+
+    <button type="submit" class="btn btn-secondary">{% trans "Log Out" %}</button>
+    <a href="{% url 'core:index' %}" class="btn btn-link">{% trans "Cancel" %}</a>
+  </form>
+</div>
+
+{% endblock %}

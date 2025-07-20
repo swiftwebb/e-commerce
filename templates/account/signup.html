@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Sign Up" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Sign Up" %}</h2>
+
+<div class="col-4 offset-4 mb-5 mt-5">
+  <form method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field|add_class:"form-control" }}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-secondary">{% trans "Sign Up" %}</button>
+    <a href="{% url 'core:index' %}" class="btn btn-link">{% trans "Cancel" %}</a>
+    <div lass="mb-3">
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

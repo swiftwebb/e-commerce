@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Stylish Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f4f7;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(to right, #4CAF50, #66BB6A);
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+    }
+    nav {
+      background: #333;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: block;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: #555;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    article {
+      background: #fff;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    article:hover {
+      transform: translateY(-5px);
+    }
+    article img {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+    article .content {
+      padding: 20px;
+    }
+    article h2 {
+      color: #4CAF50;
+      margin-top: 0;
+    }
+    article p.meta {
+      color: #777;
+      font-size: 0.9em;
+      margin-top: -10px;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Stylish Blog</h1>
+    <p>Sharing my thoughts and inspiration</p>
+  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Articles</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="container">
+    <article>
+      <img src="https://source.unsplash.com/900x400/?nature,forest" alt="Beautiful Forest">
+      <div class="content">
+        <h2>Exploring the Forest</h2>
+        <p class="meta">Posted on July 9, 2025 by Author</p>
+        <p>Today I ventured into the heart of the forest. The fresh air, the singing birds, and the towering trees reminded me how important it is to reconnect with nature.</p>
+      </div>
+    </article>
+    <article>
+      <img src="https://source.unsplash.com/900x400/?coffee,work" alt="Coffee and Work">
+      <div class="content">
+        <h2>The Perfect Morning Routine</h2>
+        <p class="meta">Posted on July 8, 2025 by Author</p>
+        <p>Starting the day with a good cup of coffee and planning ahead makes all the difference. Here's how I structure my mornings to stay productive and inspired.</p>
+      </div>
+    </article>
+    <article>
+      <img src="https://source.unsplash.com/900x400/?travel,adventure" alt="Travel Adventure">
+      <div class="content">
+        <h2>Why You Should Travel More</h2>
+        <p class="meta">Posted on July 7, 2025 by Author</p>
+        <p>Travel opens your mind and enriches your soul. Whether it's a weekend getaway or a long journey abroad, every trip offers something unique.</p>
+      </div>
+    </article>
+  </div>
+  <footer>
+    <p>&copy; 2025 My Stylish Blog. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+
+
+{% for num in paginator.page_range %}
+{% if num == page_obj.number %}
+  <li class="page-item active">
+    <a class="page-link" href="#">{{ num }}</a>
+  </li>
+{% else %}
+  <li class="page-item">
+    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+  </li>
+{% endif %}
+{% endfor %}

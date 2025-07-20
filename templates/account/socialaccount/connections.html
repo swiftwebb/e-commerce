@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Manage Social Connections" %}{% endblock %}
+
+{% block content %}
+<h2>{% trans "Manage Social Connections" %}</h2>
+
+<div class="col-4 offset-4 mb-5 mt-5">
+  {% if socialaccounts %}
+    <ul class="list-group mb-3">
+      {% for account in socialaccounts %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ account.provider|capfirst }} ({{ account.uid }})
+          <form method="post" action="{% url 'socialaccount_connections' %}" style="margin:0;">
+            {% csrf_token %}
+            <input type="hidden" name="account" value="{{ account.id }}">
+            <button type="submit" name="action" value="disconnect" class="btn btn-danger btn-sm">
+              {% trans "Disconnect" %}
+            </button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>{% trans "No social accounts connected." %}</p>
+  {% endif %}
+
+  <a href="{% url 'socialaccount_conn_

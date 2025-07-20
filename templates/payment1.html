@@ -1,0 +1,137 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+    <!-- Container wrapper -->
+    <div class="container">    
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent1"
+        aria-controls="navbarSupportedContent1"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+
+      <!-- Collapsible wrapper -->
+      
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+        <!-- Icon -->
+        <a class="nav-link me-3" href="#">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+  
+        <a class="nav-link me-3" href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a class="nav-link me-3" href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+      <!-- Right elements -->
+      
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  
+  <!-- carousel -->
+
+  
+<!--Main layout-->
+<main class="">
+    <div class="container">
+        <!-- Heading -->
+        <h2 class="my-5 text-center">Checkout form</h2>
+
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4">
+               
+                <!--Card-->
+                <div class="card p-4">
+ 
+<div class="untree_co-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center pt-5">
+        <span class="display-3 thankyou-icon text-primary">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-check mb-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+        </span>
+        <h2 class="display-3 text-black">Hello</h2>
+        {% for order_item in order.items.all %}
+        <p class="lead mb-5">You're about to pay {{ order_item.quantity }} * {{ order_item.item.title}}.</p>
+        <p class="lead mb-5">price is #{{ order.get_total}}</p>
+        {% endfor %}
+        <div class="form-group">
+          <button onclick="payWithPaystack()" class="btn btn-black btn-lg py-3 btn-block">Make payment</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                </div>
+                <!--/.Card-->
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+           
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+        {% include "order_snippet.html" %}
+    </div>
+</main>
+<!--Main layout-->
+
+<!-- footer -->
+
+
+
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    function payWithPaystack() {
+        var ref = "{{ ref }}";  // ✅ Now JS knows what `ref` is
+        var handler = PaystackPop.setup({
+            key: "{{ paystack_pub_key }}",
+            email: "{{ email }}",
+            amount: {{ amount }},
+            ref: ref,
+            callback: function(response){
+    window.location.href = "{% url 'core:verify-payment' %}?reference=" + response.reference;
+},
+
+
+            onClose: function(){
+                alert('Transaction was not completed, window closed.');
+            }
+        });
+        handler.openIframe();
+    }
+</script>
+
+
+
+
+{% endblock %}
+
+
