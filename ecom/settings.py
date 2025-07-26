@@ -131,6 +131,7 @@ AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
 MEDIA_URL = f'https://djangoweb1.s3.eu-north-1.amazonaws.com/'
+
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
