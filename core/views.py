@@ -799,71 +799,47 @@ def initiate_payment(request):
 #             return redirect("core:checkout")
 
 
+from django.http import HttpResponseServerError
+import logging
+
+logger = logging.getLogger(__name__)
 
 class VerifyPaymentView(View):
     def get(self, request, *args, **kwargs):
-        ref = request.GET.get("reference")
-        user = request.user
-
         try:
+            ref = request.GET.get("reference")
+            user = request.user
+
             order = Order.objects.get(user=user, ordered=False)
-        except Order.DoesNotExist:
-            messages.error(request, "No active order found.")
-            return redirect("core:checkout")
 
-        try:
             payment = Payment.objects.get(ref=ref, user=user)
-        except Payment.DoesNotExist:
-            messages.error(request, "Invalid transaction reference.")
-            return redirect("core:checkout")
 
-        if verify_payment(ref, payment.amount):
-            payment.verified = True
-            payment.email = user.email
-            payment.save()
+            if verify_payment(ref, payment.amount):
+                payment.verified = True
+                payment.email = user.email
+                payment.save()
 
-            order.payment = payment  # ✅ Link the verified payment
-            order.ordered = True
-            order.ref_code = create_ref_code()
-            order.ordered_date = timezone.now()
-            order.save()
+                order.payment = payment
+                order.ordered = True
+                order.ref_code = create_ref_code()
+                order.ordered_date = timezone.now()
+                order.save()
 
-            # Update order items
-            order_items = order.items.all()
-            order_items.update(ordered=True)
-            for item in order_items:
-                item.save()
-                item.item.quantity -= item.quantity
-                item.item.save()
+                order_items = order.items.all()
+                order_items.update(ordered=True)
+                for item in order_items:
+                    item.save()
+                    item.item.quantity -= item.quantity
+                    item.item.save()
 
-            messages.success(request, "Payment verified and order completed!")
-            return redirect("core:index")
-        else:
-            messages.warning(request, "Payment verification failed.")
-            return redirect("core:checkout")
+                messages.success(request, "Payment verified and order completed!")
+                return redirect("core:index")
+            else:
+                messages.warning(request, "Payment verification failed.")
+                return redirect("core:checkout")
 
-
-
-
-
-
-
-
-
-
-
-
-
-from datetime import timedelta
-from django.utils import timezone
-from core.models import Payment
-
-def cleanup_unverified_payments():
-    Payment.objects.filter(
-        verified=False,
-        timestamp__lt=timezone.now() - timedelta(hours=2)
-    ).delete()
-
-
+        except Exception as e:
+            logger.exception("Error verifying payment")  # Logs full traceback
+            return HttpResponseServerError(f"Server Error: {str(e)}")
 
 
