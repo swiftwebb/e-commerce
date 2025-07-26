@@ -760,86 +760,86 @@ def initiate_payment(request):
 
 
 
-# class VerifyPaymentView(View):
-#     def get(self, request, *args, **kwargs):
-#         ref = request.GET.get("reference")
-
-#         try:
-#             payment = Payment.objects.filter(ref=ref).order_by('-timestamp').first()
-
-#         except Payment.DoesNotExist:
-#             messages.error(request, "Invalid transaction reference.")
-#             return redirect("core:checkout")
-
-#         if verify_payment(ref, payment.amount):
-#             payment.verified = True
-#             payment.email = self.request.user.email
-#             payment.save()
-
-#             order = Order.objects.get(user=request.user, ordered=False)
-#             order.ordered = True
-#             order.ref_code = create_ref_code()
-#             order.ordered_date = timezone.now()
-#             order.save()
-
-#             order_items = order.items.all()
-#             order_items.update(ordered = True)
-#             for item in order_items:
-#                 item.save()
-
-
-#                 item.item.quantity -= item.quantity
-#                 item.item.save()
-
-
-#             messages.success(request, "Payment verified successfully!")
-#             return redirect("core:index")
-#         else:
-#             messages.warning(request, "Payment verification failed.")
-#             return redirect("core:checkout")
-
-
-from django.http import HttpResponseServerError
-import logging
-
-logger = logging.getLogger(__name__)
-
 class VerifyPaymentView(View):
     def get(self, request, *args, **kwargs):
+        ref = request.GET.get("reference")
+
         try:
-            ref = request.GET.get("reference")
-            user = request.user
+            payment = Payment.objects.filter(ref=ref).order_by('-timestamp').first()
 
-            order = Order.objects.get(user=user, ordered=False)
+        except Payment.DoesNotExist:
+            messages.error(request, "Invalid transaction reference.")
+            return redirect("core:checkout")
 
-            payment = Payment.objects.get(ref=ref, user=user)
+        if verify_payment(ref, payment.amount):
+            payment.verified = True
+            payment.email = self.request.user.email
+            payment.save()
 
-            if verify_payment(ref, payment.amount):
-                payment.verified = True
-                payment.email = user.email
-                payment.save()
+            order = Order.objects.get(user=request.user, ordered=False)
+            order.ordered = True
+            order.ref_code = create_ref_code()
+            order.ordered_date = timezone.now()
+            order.save()
 
-                order.payment = payment
-                order.ordered = True
-                order.ref_code = create_ref_code()
-                order.ordered_date = timezone.now()
-                order.save()
+            order_items = order.items.all()
+            order_items.update(ordered = True)
+            for item in order_items:
+                item.save()
 
-                order_items = order.items.all()
-                order_items.update(ordered=True)
-                for item in order_items:
-                    item.save()
-                    item.item.quantity -= item.quantity
-                    item.item.save()
 
-                messages.success(request, "Payment verified and order completed!")
-                return redirect("core:index")
-            else:
-                messages.warning(request, "Payment verification failed.")
-                return redirect("core:checkout")
+                item.item.quantity -= item.quantity
+                item.item.save()
 
-        except Exception as e:
-            logger.exception("Error verifying payment")  # Logs full traceback
-            return HttpResponseServerError(f"Server Error: {str(e)}")
+
+            messages.success(request, "Payment verified successfully!")
+            return redirect("core:index")
+        else:
+            messages.warning(request, "Payment verification failed.")
+            return redirect("core:checkout")
+
+
+# from django.http import HttpResponseServerError
+# import logging
+
+# logger = logging.getLogger(__name__)
+
+# class VerifyPaymentView(View):
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             ref = request.GET.get("reference")
+#             user = request.user
+
+#             order = Order.objects.get(user=user, ordered=False)
+
+#             payment = Payment.objects.get(ref=ref, user=user)
+
+#             if verify_payment(ref, payment.amount):
+#                 payment.verified = True
+#                 payment.email = user.email
+#                 payment.save()
+
+#                 order.payment = payment
+#                 order.ordered = True
+#                 order.ref_code = create_ref_code()
+#                 order.ordered_date = timezone.now()
+#                 order.save()
+
+#                 order_items = order.items.all()
+#                 order_items.update(ordered=True)
+#                 for item in order_items:
+#                     item.save()
+#                     item.item.quantity -= item.quantity
+#                     item.item.save()
+
+#                 messages.success(request, "Payment verified and order completed!")
+#                 return redirect("core:index")
+#             else:
+#                 messages.warning(request, "Payment verification failed.")
+#                 return redirect("core:checkout")
+
+#         except Exception as e:
+#             logger.exception("Error verifying payment")  # Logs full traceback
+#             return HttpResponseServerError(f"Server Error: {str(e)}")
 
 
