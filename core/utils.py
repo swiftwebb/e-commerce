@@ -2,17 +2,17 @@
 import requests
 from django.conf import settings
 
-def verify_payment(ref, amount):
-    url = f"https://api.paystack.co/transaction/verify/{ref}"
-    headers = {
-        "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        res_data = response.json()
-        if res_data['data']['amount'] == int(amount * 100) and res_data['data']['status'] == 'success':
-            return True
-    return False
+# def verify_payment(ref, amount):
+#     url = f"https://api.paystack.co/transaction/verify/{ref}"
+#     headers = {
+#         "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"
+#     }
+#     response = requests.get(url, headers=headers)
+#     if response.status_code == 200:
+#         res_data = response.json()
+#         if res_data['data']['amount'] == int(amount * 100) and res_data['data']['status'] == 'success':
+#             return True
+#     return False
 
 
 
