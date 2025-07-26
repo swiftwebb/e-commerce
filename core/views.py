@@ -760,40 +760,68 @@ def initiate_payment(request):
 
 
 
+# class VerifyPaymentView(View):
+#     def get(self, request, *args, **kwargs):
+#         ref = request.GET.get("reference")
+
+#         try:
+#             payment = Payment.objects.filter(ref=ref).order_by('-timestamp').first()
+
+#         except Payment.DoesNotExist:
+#             messages.error(request, "Invalid transaction reference.")
+#             return redirect("core:checkout")
+
+#         if verify_payment(ref, payment.amount):
+#             payment.verified = True
+#             payment.email = self.request.user.email
+#             payment.save()
+
+#             order = Order.objects.get(user=request.user, ordered=False)
+#             order.ordered = True
+#             order.ref_code = create_ref_code()
+#             order.ordered_date = timezone.now()
+#             order.save()
+
+#             order_items = order.items.all()
+#             order_items.update(ordered = True)
+#             for item in order_items:
+#                 item.save()
+
+
+#                 item.item.quantity -= item.quantity
+#                 item.item.save()
+
+
+#             messages.success(request, "Payment verified successfully!")
+#             return redirect("core:index")
+#         else:
+#             messages.warning(request, "Payment verification failed.")
+#             return redirect("core:checkout")
+
+# core/views.py
+
+from django.views import View
+from django.http import HttpResponse
+import requests
+from django.conf import settings
+
 class VerifyPaymentView(View):
-    def get(self, request, *args, **kwargs):
-        ref = request.GET.get("reference")
+    def get(self, request):
+        reference = request.GET.get("reference")
+        if not reference:
+            return HttpResponse("No reference supplied", status=400)
+
+        headers = {
+            "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"
+        }
+        url = f"https://api.paystack.co/transaction/verify/{reference}"
 
         try:
-            payment = Payment.objects.filter(ref=ref).order_by('-timestamp').first()
-
-        except Payment.DoesNotExist:
-            messages.error(request, "Invalid transaction reference.")
-            return redirect("core:checkout")
-
-        if verify_payment(ref, payment.amount):
-            payment.verified = True
-            payment.email = self.request.user.email
-            payment.save()
-
-            order = Order.objects.get(user=request.user, ordered=False)
-            order.ordered = True
-            order.ref_code = create_ref_code()
-            order.ordered_date = timezone.now()
-            order.save()
-
-            order_items = order.items.all()
-            order_items.update(ordered = True)
-            for item in order_items:
-                item.save()
-
-
-                item.item.quantity -= item.quantity
-                item.item.save()
-
-
-            messages.success(request, "Payment verified successfully!")
-            return redirect("core:index")
-        else:
-            messages.warning(request, "Payment verification failed.")
-            return redirect("core:checkout")
+            response = requests.get(url, headers=headers, timeout=10)
+            data = response.json()
+            if data["data"]["status"] == "success":
+                return HttpResponse("Payment Successful")
+            else:
+                return HttpResponse("Payment Failed", status=400)
+        except requests.exceptions.RequestException as e:
+            return HttpResponse(f"Error: {e}", status=500)
