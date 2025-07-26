@@ -120,7 +120,7 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE)
-    ref_code = models.CharField(max_length=20)
+    ref_code = models.CharField(max_length=100)
     items = models.ManyToManyField(OrderItem)
     Start_date= models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField(null=True, blank=True)
