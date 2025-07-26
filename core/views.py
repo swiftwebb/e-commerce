@@ -798,30 +798,20 @@ class VerifyPaymentView(View):
             messages.warning(request, "Payment verification failed.")
             return redirect("core:checkout")
 
-# core/views.py
 
-# from django.views import View
-# from django.http import HttpResponse
-# import requests
-# from django.conf import settings
 
-# class VerifyPaymentView(View):
-#     def get(self, request):
-#         reference = request.GET.get("reference")
-#         if not reference:
-#             return HttpResponse("No reference supplied", status=400)
 
-#         headers = {
-#             "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"
-#         }
-#         url = f"https://api.paystack.co/transaction/verify/{reference}"
 
-#         try:
-#             response = requests.get(url, headers=headers, timeout=10)
-#             data = response.json()
-#             if data["data"]["status"] == "success":
-#                 return HttpResponse("Payment Successful")
-#             else:
-#                 return HttpResponse("Payment Failed", status=400)
-#         except requests.exceptions.RequestException as e:
-#             return HttpResponse(f"Error: {e}", status=500)
+
+
+
+
+
+
+
+
+
+
+
+
+
