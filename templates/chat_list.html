@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>All Chats</h2>
+
+<div class="space-y-6">
+<ul>
+  {% for chat in chats %}
+    <li>
+      <a href="{{ chat.get_absolute_url }}">
+         <p class="mb-4">Chat with {{ chat.customer.username }}</p>
+      </a>
+    </li>
+  {% empty %}
+    <li>No chats available.</li>
+  {% endfor %}
+</ul>
+</div>
+
+
+{% endblock %}
+

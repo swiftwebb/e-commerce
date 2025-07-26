@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <title>Phone {% block head_title %}{% endblock %}</title>
-
+            <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% block extra_head %}
@@ -65,7 +65,16 @@
 
                                         <a href="{% url 'core:order-summary' %}"><span><i class="fas fa-shopping-cart"></i></span>
                                             <span class="count">{{ request.user|cart_item_count }}</span>
+
                                         </a>
+                                        {% if request.user.is_staff %}
+                                            <a href="{% url 'cs:chat_list' %}"><span><i class="fas fa-user"></i> chats</span></a>
+                                        {% else %}
+                                           <a href="{% url 'cs:start_chat' %}"><span><i class="fas fa-user"></i> chat</span></a>
+                                        {% endif %}
+
+
+
                                     {% else %}
                                         <a href="{% url 'account_login' %}"><span><i
                                                 class="fas fa-sign-in-alt"></i> log in</span></a>

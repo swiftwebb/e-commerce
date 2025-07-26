@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Chat #{{ chat.id }}</h2>
+
+<div class="space-y-6">
+  {% for msg in messagesf %}
+        <div class="p-6 flex {% if msg.sender.is_staff %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">
+      <strong>{{ msg.sender.username }}</strong> @ {{ msg.timestamp }}<br>
+      {{ msg.message }}
+    </div>
+  {% endfor %}
+</div>
+
+<form method="post" action="." class="mt-6">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary" type="submit">Send</button>
+  <a href="/" class="btn btn-secondary">Go back Home</a>
+
+</form>
+{% endblock %}
+<!-- <div class="space-y-6">
+    {% for message in conversation.messages.all %}
+        <div class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">
+            <div>
+                <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+                <p>{{ message.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div> -->
