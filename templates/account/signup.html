@@ -25,7 +25,7 @@
     <button type="submit" class="btn btn-secondary">{% trans "Sign Up" %}</button>
     <a href="{% url 'core:index' %}" class="btn btn-link">{% trans "Cancel" %}</a>
     <div lass="mb-3">
-      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+      <a href="{% provider_login_url 'google' %}}">Login with Google</a>
     </div>
   </form>
 </div>

@@ -32,8 +32,7 @@
     <p><a href="{% url 'account_reset_password' %}">Forgot your password?</a></p>
 
     <div lass="mb-3">
-      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
-    </div>
+      <a href="{% provider_login_url 'google' %}" class="btn btn-danger"></a>
   </form>
 </div>
 
