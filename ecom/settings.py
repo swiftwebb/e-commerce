@@ -47,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    # 'social_django',
+    'social_django',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     # Django default
     'django.contrib.auth.backends.ModelBackend',
-    # 'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
 
     # Allauth
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -186,8 +186,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -199,48 +199,13 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # app password or real p
 DEFAULT_FROM_EMAIL = 'no-reply@example.com'
 
 
-
-
-
-# Use this instead of ACCOUNT_AUTHENTICATION_METHOD
-ACCOUNT_LOGIN_METHODS = {"email"}   # can also be {"username", "email"} if you want both
-
-# Email must be provided
-ACCOUNT_EMAIL_REQUIRED = True  # you can keep this, still works
-
-# Username not required
-ACCOUNT_USERNAME_REQUIRED = False
-
-# Instead of ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
-ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-
-# Require email verification
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-
-# Make sure emails are unique
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*'] 
+ACCOUNT_AUTHENTICATION_METHOD = "email" 
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Options: "mandatory", "optional", or "none"
 ACCOUNT_UNIQUE_EMAIL = True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ACCOUNT_LOGIN_METHODS = {'email'}
-# ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*'] 
-# ACCOUNT_AUTHENTICATION_METHOD = "email" 
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Options: "mandatory", "optional", or "none"
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-# ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 SITE_ID= 1
 # settings.py
 PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
@@ -251,12 +216,6 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
 
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 
- 
-SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_LOGIN_ON_GET = True
-
-# settings.py
-SOCIALACCOUNT_ADAPTER = 'core.adapter.MySocialAccountAdapter'
