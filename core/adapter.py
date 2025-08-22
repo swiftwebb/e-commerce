@@ -7,20 +7,21 @@ from django.urls import reverse
 
 class MySocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
-        # If already linked, do nothing
         if sociallogin.is_existing:
             return
 
-        # Be defensive: some providers may not return email
         email = (sociallogin.account.extra_data or {}).get("email")
         if not email:
-            return  # Let allauth proceed with normal flow
+            return
 
+        User = get_user_model()
         try:
-            user = get_user_model().objects.get(email=email)
-        except get_user_model().DoesNotExist:
-            return  # Let allauth create a new user
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return
 
-        # Link social to existing user and redirect
+        # Safely connect this login with the existing user
         sociallogin.connect(request, user)
-        raise ImmediateHttpResponse(redirect(reverse("core:home")))
+
+        # Redirect to the correct home/index page
+        raise ImmediateHttpResponse(redirect(reverse("core:index")))
