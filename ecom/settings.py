@@ -47,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    # 'social_django',
+    'social_django',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
