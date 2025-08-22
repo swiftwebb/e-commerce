@@ -217,4 +217,4 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_ADAPTER = "core.adapters.MySocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "core.adapters.MySocialAccountAdapter"
