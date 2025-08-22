@@ -199,9 +199,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # app password or real p
 DEFAULT_FROM_EMAIL = 'no-reply@example.com'
 
 
-# ACCOUNT_LOGIN_METHODS = {'email'}
-# ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*'] 
-ACCOUNT_AUTHENTICATION_METHOD = "email" 
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*'] 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Options: "mandatory", "optional", or "none"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -216,9 +215,6 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
 
-ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_ADAPTER = "core.adapters.MySocialAccountAdapter"
+# ACCOUNT_ADAPTER = "core.adapters.MySocialAccountAdapter"
