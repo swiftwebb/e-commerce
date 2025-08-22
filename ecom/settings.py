@@ -47,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    'social_django',
+    # 'social_django',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     # Django default
     'django.contrib.auth.backends.ModelBackend',
-    # 'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
 
     # Allauth
     'allauth.account.auth_backends.AuthenticationBackend',
