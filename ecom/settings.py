@@ -47,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    'social_django',
+    # 'social_django',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     # Django default
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
 
     # Allauth
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -219,3 +219,9 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
+ 
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# settings.py
+SOCIALACCOUNT_ADAPTER = 'core.adapter.MySocialAccountAdapter'
