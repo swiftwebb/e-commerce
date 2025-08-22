@@ -259,4 +259,4 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # settings.py
-# SOCIALACCOUNT_ADAPTER = 'core.adapter.MySocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'core.adapter.MySocialAccountAdapter'
