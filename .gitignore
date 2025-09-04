@@ -23,4 +23,4 @@ ENV/
 # macOS files
 .DS_Store
 .env
-
+DS_Store
