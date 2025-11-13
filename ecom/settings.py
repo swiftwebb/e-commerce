@@ -155,9 +155,11 @@ STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# Static files (CSS, JavaScript, Images)
 
-VENV_PATH = os.path.dirname(BASE_DIR)
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # your dev static folder
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')    # folder where collectstatic will copy files
+
 
 # STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 # MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root')
