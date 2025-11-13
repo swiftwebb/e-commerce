@@ -67,7 +67,7 @@ class Item(models.Model):
     slug = models.SlugField()
     description =models.TextField()
     quantity = models.IntegerField(default=1,validators=[MinValueValidator(0)])
-    image = models.ImageField(storage=S3Boto3Storage(), upload_to='ecom/')
+    image = models.ImageField(storage=S3Boto3Storage(), upload_to='ecom/',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     type_phone = models.CharField(choices= TYPE_CHOICES, max_length=19)
 
