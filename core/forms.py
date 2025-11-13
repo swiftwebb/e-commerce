@@ -41,7 +41,7 @@ class CheckoutForm(forms.Form):
 class CouponForm(forms.Form):
     code = forms.CharField(widget=forms.TextInput(attrs={
         'class':'form-control',
-        'placeholder':"Promo code",
+        'placeholder':"Enter your business name",
         'aria-label' :"Promo code",
         'aria-describedby':"button-addon2"
 

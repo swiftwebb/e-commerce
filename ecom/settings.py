@@ -35,12 +35,10 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["e-commerce-1-uui9.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]# ["e-commerce-1-uui9.onrender.com", "localhost", "127.0.0.1"]
 
 
 # Added domain for Render hosting
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
