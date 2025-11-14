@@ -107,8 +107,9 @@
             <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
               data-mdb-ripple-color="light">
               <a href="{{ item.get_absolute_url }}">
-              
+              {% if item.image %}
                 <img src="{{ item.image.url }}" class="w-100">
+              {% endif %}
                 <div class="mask">
                   <div class="d-flex justify-content-start align-items-end h-100">
                     <h5><span class="badge bg-dark ms-2 {{ item.get_label_display }}">{{ item.get_type_phone_display}}</span></h5>

@@ -50,7 +50,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 CSRF_TRUSTED_ORIGINS = [
     "https://e-commerce-1-uui9.onrender.com"
 ]
-DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
+DEBUG = True# os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ["*"]# ["e-commerce-1-uui9.onrender.com", "localhost", "127.0.0.1"]
 
