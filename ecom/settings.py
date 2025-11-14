@@ -12,21 +12,38 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-DATABASE_URL = os.getenv('DATABASE_URL')
+# DATABASE_URL = os.getenv('DATABASE_URL')
 
-if DATABASE_URL:
-    # Use Render's Postgres database in production
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600,ssl_require=True)
+# if DATABASE_URL:
+#     # Use Render's Postgres database in production
+#     DATABASES = {
+#         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600,ssl_require=True)
+#     }
+# else:
+#     # Local development DB: using SQLite by default
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'backendcourse',
+        'USER': 'mysuperuser',
+        'PASSWORD': 'mysuperuser',
+        'HOST': 'backendcourse.cedk4oogc991.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
-else:
-    # Local development DB: using SQLite by default
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
+
+
+
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 
